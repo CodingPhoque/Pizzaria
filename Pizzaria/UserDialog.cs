@@ -19,22 +19,25 @@ namespace Pizzaria
             Pizza pizzaItem = new Pizza();
             Console.Clear();
             Console.WriteLine("-----------------------");
-            Console.WriteLine("| Creating Pizza      |");
+            Console.WriteLine("|    Creating Pizza   |");
             Console.WriteLine("-----------------------");
             Console.WriteLine();
             Console.Write("Enter name: ");
             pizzaItem.Name = Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("Enter ingredients: ");
+            pizzaItem.Ingredients = Console.ReadLine();
 
             string input = "";
             Console.Write("Enter price: ");
             try
             {
                 input = Console.ReadLine();
-                pizzaItem.Price = Int32.Parse(input);
+                pizzaItem.Price = Int32.Parse(input); 
             }
             catch (FormatException e)
             {
-                Console.WriteLine($"Unable to parse '{input}' - Message: {e.Message}");
+                Console.WriteLine($"False input '{input}' - Message: {e.Message}");
                 throw;
             }
 
@@ -47,7 +50,7 @@ namespace Pizzaria
             }
             catch (FormatException e)
             {
-                Console.WriteLine($"Unable to parse '{input}' - Message: {e.Message}");
+                Console.WriteLine($"False input '{input}' - Message: {e.Message}");
                 throw;
             }
 
@@ -56,9 +59,9 @@ namespace Pizzaria
         int MainMenuChoice(List<string> menuItems)
         {
             Console.Clear();
-            Console.WriteLine("--------------------");
-            Console.WriteLine("| KILLER PIZZAMENU |");
-            Console.WriteLine("--------------------");
+            Console.WriteLine("----------------------------");
+            Console.WriteLine("| Big Mammas Pizzaria Menu |");
+            Console.WriteLine("----------------------------");
             Console.WriteLine();
             Console.WriteLine("Options:");
             foreach (string choice in menuItems)
@@ -77,7 +80,7 @@ namespace Pizzaria
 
             catch (FormatException)
             {
-                Console.WriteLine($"Unable to parse '{input}'");
+                Console.WriteLine($" False input '{input}' must be a number");
             }
             return -1;
         }
@@ -86,10 +89,12 @@ namespace Pizzaria
             bool proceed = true;
             List<string> mainMenulist = new List<string>()
             {
-                "0. Quit",
                 "1. Create new pizza",
-                "2. Print menu",
-                "3. Some choice"
+                "2. Delete a pizza",
+                "3. Update a pizza",
+                "4. Search for a pizza",
+                "5. Print pizza menu",
+                "6. Exit",
             };
 
             while (proceed)
@@ -98,10 +103,6 @@ namespace Pizzaria
                 Console.WriteLine();
                 switch (MenuChoice)
                 {
-                    case 0:
-                        proceed = false;
-                        Console.WriteLine("Quitting");
-                        break;
                     case 1:
                         try
                         {
@@ -117,14 +118,103 @@ namespace Pizzaria
                         Console.ReadKey();
                         break;
                     case 2:
+                        // Delete a pizza
+                        Console.Write("Enter the name of the pizza to delete: ");
+                        string deleteName = Console.ReadLine();
+                        try
+                        {
+                            // Define a predicate function to search for pizzas by name
+                            Func<Pizza, bool> deletePredicate = pizza => pizza.Name.ToLower() == deleteName.ToLower();
+
+                            // Delete the pizza matching the predicate
+                            bool deleted = _pizzaDataLayer.DeletePizza(deletePredicate);
+
+                            if (deleted)
+                            {
+                                Console.WriteLine("Pizza deleted successfully.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Pizza not found.");
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input format");
+                        }
+                        Console.Write("Hit any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case 3:
+                        // Update a pizza
+                        Console.Write("Enter the name of the pizza to update: ");
+                        string updateName = Console.ReadLine();
+                        try
+                        {
+                            // Define a predicate function to search for pizzas by name
+                            Func<Pizza, bool> updatePredicate = pizza => pizza.Name.ToLower() == updateName.ToLower();
+
+                            // Create a new Pizza object with updated information
+                            Pizza updatedPizza = GetNewPizza();
+
+                            // Update the pizza matching the predicate
+                            bool updated = _pizzaDataLayer.UpdatePizza(updatePredicate, updatedPizza);
+
+                            if (updated)
+                            {
+                                Console.WriteLine("Pizza updated successfully.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Pizza not found.");
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input format");
+                        }
+                        Console.Write("Hit any key to continue");
+                        Console.ReadKey();
+                        break;
+
+                    case 4:
+                        // Search your pizza
+                        Console.Write("Enter the name of the pizza: ");
+                        string searchName = Console.ReadLine();
+                        try
+                        {
+                            // Define a predicate function to search for pizzas by name
+                            Func<Pizza, bool> predicate = pizza => pizza.Name.ToLower() == searchName.ToLower();
+
+                            // Search for a pizza matching the predicate
+                            Pizza foundPizza = _pizzaDataLayer.SearchPizza(predicate);
+
+                            // Check if a pizza was found
+                            if (foundPizza != null)
+                            {
+                                Console.WriteLine($"Found Pizza: {foundPizza}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Pizza not found.");
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Invalid input format");
+                        }
+                        Console.Write("Hit any key to continue");
+                        Console.ReadKey();
+                        break;
+                    case 5:
                         _pizzaDataLayer.PrintMenu();
                         Console.Write("Hit any key to continue");
                         Console.ReadKey();
                         break;
-                    case 3:
-                        Console.WriteLine($"You selected: {mainMenulist[MenuChoice]}");
-                        Console.Write("Hit any key to continue");
-                        Console.ReadKey();
+                    case 6:
+                        proceed = false;
+                        Console.WriteLine("Exit");
                         break;
                     default:
                         Console.Write("Hit any key to continue");

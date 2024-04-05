@@ -19,6 +19,39 @@ namespace Pizzaria
         {
             _pizzas.Add(p);
         }
+        
+        public Pizza SearchPizza(Func<Pizza, bool> predicate)
+        {
+            Pizza pizza = _pizzas.FirstOrDefault(predicate);
+            return pizza;
+        }
+       
+        public bool DeletePizza(Func<Pizza, bool> predicate)
+        {
+            Pizza pizzaToRemove = _pizzas.FirstOrDefault(predicate);
+            if (pizzaToRemove != null)
+            {
+                _pizzas.Remove(pizzaToRemove);
+                return true; // Indicate successful deletion
+            }
+            return false; // Indicate pizza not found
+        }
+
+        public bool UpdatePizza(Func<Pizza, bool> predicate, Pizza newPizza)
+        {
+            Pizza pizzaToUpdate = _pizzas.FirstOrDefault(predicate);
+            if (pizzaToUpdate != null)
+            {
+                // Update pizza properties
+                pizzaToUpdate.Number = newPizza.Number;
+                pizzaToUpdate.Name = newPizza.Name;
+                pizzaToUpdate.Ingredients = newPizza.Ingredients;
+                pizzaToUpdate.Price = newPizza.Price;
+            
+                return true; // Indicate successful update
+            }
+            return false; // Indicate pizza not found
+        }
 
         public void PrintMenu()
         {
