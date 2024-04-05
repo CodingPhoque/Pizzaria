@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Pizzaria.Pizza">
+    <Position X="21.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAEAEAAACQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pizza.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pizzaria.PizzaDataLayer">
+    <Position X="16.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAABAAAAAAAAAIAAAEAAAAAABAQAAAA=</HashCode>
+      <FileName>PizzaDataLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pizzaria.UserDialog">
+    <Position X="18.5" Y="2.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAgAAAAAAAAAAAAAACAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>UserDialog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pizzaria.Store">
+    <Position X="23.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAI=</HashCode>
+      <FileName>Store.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

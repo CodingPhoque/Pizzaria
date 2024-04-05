@@ -75,33 +75,6 @@ namespace Pizzaria
 
             pizzaDataLayer.PrintMenu();
 
-            /*Console.WriteLine();
-            int pizzaToBeFound = 2;
-            Console.WriteLine($"Finding Pizza {pizzaToBeFound}");
-            Pizza foundPizza = pizzaDataLayer.Read(pizzaToBeFound);
-            Console.WriteLine(foundPizza);
-
-            Console.WriteLine();
-            string searchCriteria = "PIZZA#1";
-            Console.WriteLine($"Finding Pizza starting with: {searchCriteria}");
-            foundPizza = pizzaDataLayer.SearchPizza(searchCriteria);
-            Console.WriteLine(foundPizza);
-
-            Console.WriteLine();
-            Console.WriteLine($"Updating Pizza #{foundPizza.Number}");
-            foundPizza.Name += " (Updated)";
-            pizzaDataLayer.Update(foundPizza);
-
-            Console.WriteLine();
-            pizzaDataLayer.PrintMenu();
-
-            Console.WriteLine();
-            int pizzaToBeDeleted = 2;
-            Console.WriteLine($"Deleting pizza#: {pizzaToBeDeleted}");
-            pizzaDataLayer.Delete(pizzaToBeDeleted);
-            Console.WriteLine();
-            pizzaDataLayer.PrintMenu();*/
-
         }
 
         public void Run()
